@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 
-export LIMITADOR_OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/api-management-tenant/rh-limitador-operator@sha256:49cf786e6b5265b5edf34328496dc3fced9af4cdcc5d3fd94d949390a10ef1a1"
-
-export LIMITADOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/api-management-tenant/rh-limitador@sha256:f979746e7ec0914488dac5ce96eb2e66453626748af4f10a937f1cbf28eb3244"
+# enables strict mode: `-e` fails if error, `-u` checks variable references, `-o pipefail`: prevents errors in a pipeline from being masked
+set -euo pipefail
 
 export CSV_FILE=/manifests/limitador-operator.clusterserviceversion.yaml
-
+export LIMITADOR_OPERATOR_IMAGE_PULLSPEC="registry.redhat.io/rhcl-1/limitador-rhel9-operator"
+export LIMITADOR_PULLSPEC="registry.redhat.io/rhcl-1/limitador-rhel9"
 export DESCRIPTION=$(cat DESCRIPTION)
-
 export ICON=$(cat ICON)
 
-sed -i -e "s|quay.io/kuadrant/limitador-operator:.*|\"${LIMITADOR_OPERATOR_IMAGE_PULLSPEC}\"|g" \
+#Update the konflux quay repos to registry.redhat.io, we have to do this manually before release, since Konflux does not pin them for us like OSBS did.
+sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador-operator|${LIMITADOR_OPERATOR_IMAGE_PULLSPEC}|g" \
 	"${CSV_FILE}"
-
-sed -i -e "s|quay.io/kuadrant/limitador:.*|\"${LIMITADOR_IMAGE_PULLSPEC}\"|g" \
-	"${CSV_FILE}"
+sed -i -e "s|quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador|${LIMITADOR_PULLSPEC}|g" \
+   "${CSV_FILE}"
 
 export EPOC_TIMESTAMP=$(date +%s)
 # time for some direct modifications to the csv
@@ -59,6 +58,7 @@ limitador_operator_csv['metadata']['annotations']['features.operators.openshift.
 limitador_operator_csv['metadata']['annotations']['features.operators.openshift.io/cni'] = 'false'
 limitador_operator_csv['metadata']['annotations']['features.operators.openshift.io/csi'] = 'false'
 limitador_operator_csv['metadata']['annotations']['operators.openshift.io/valid-subscription'] = '["Red Hat Connectivity Link"]'
+limitador_operator_csv['metadata']['annotations']['repository'] = 'https://github.com/kuadrant/limitador-operator'
 
 # Add description & icon
 limitador_operator_csv['metadata']['annotations']['description'] = os.getenv('DESCRIPTION')
