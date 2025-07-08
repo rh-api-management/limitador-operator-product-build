@@ -3,27 +3,9 @@ contentOrigin:
     - ./ubi.repo
     - ./redhat.repo
 context:
-  containerfile: Containerfile.limitador-operator-bundle
+  image: registry.redhat.io/ubi9/ubi:latest
 packages:
-  - cargo
   - jq
   - python3
   - python3-pip
   - skopeo
-  - shadow-utils
-  - npm
-  - nginx
-  - nginx-core
-  - nginx-filesystem
-  - rust-toolset
-  - llvm-toolset
-  - gcc-c++
-  - gcc-toolset-12-binutils-gold
-  - protobuf-devel
-  - protobuf-compiler
-  - rust-std-static-wasm32-unknown-unknown
-  - openssl-devel
-  - perl
-  - git
-  - shadow-utils
-  - libgcc
