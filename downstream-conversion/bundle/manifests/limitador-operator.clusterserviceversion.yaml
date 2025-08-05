@@ -244,6 +244,6 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/limitador-operator
   relatedImages:
-  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador@sha256:aa17e2767b2fb3a2a099879a7b5d564051e1cb1492ecc6ef494c1d261ced8dfe
+  - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador@sha256:43386370a941b64b75a9c9cdd0812b2ca466c3fa5f3f35092cb0e113a27251c8
     name: limitador
   version: 1.1.1
