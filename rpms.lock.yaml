@@ -25,13 +25,13 @@ arches:
     name: criu-libs
     evr: 3.19-1.el9
     sourcerpm: criu-3.19-1.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/c/crun-1.21-1.el9_6.x86_64.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/c/crun-1.22-1.el9_6.x86_64.rpm
     repoid: ubi-9-appstream-rpms
-    size: 239763
-    checksum: sha256:08c8037c221ccc2f940b0a6c549a1ec1497198f8876214048aacacb272d25392
+    size: 248049
+    checksum: sha256:89b235259e4f2594ff0cfb383fa1dfc8a5db98b787f1277791f79307a78ade30
     name: crun
-    evr: 1.21-1.el9_6
-    sourcerpm: crun-1.21-1.el9_6.src.rpm
+    evr: 1.22-1.el9_6
+    sourcerpm: crun-1.22-1.el9_6.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/os/Packages/f/fuse-overlayfs-1.14-1.el9.x86_64.rpm
     repoid: ubi-9-appstream-rpms
     size: 71022
@@ -109,6 +109,13 @@ arches:
     name: fuse-common
     evr: 3.10.2-9.el9
     sourcerpm: fuse3-3.10.2-9.el9.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/j/jq-1.6-17.el9_6.2.x86_64.rpm
+    repoid: ubi-9-baseos-rpms
+    size: 191681
+    checksum: sha256:d3c6d74db82f6c55533f2d9798d2d4e44988d212880b5b2afd855a43fe2b17d9
+    name: jq
+    evr: 1.6-17.el9_6.2
+    sourcerpm: jq-1.6-17.el9_6.2.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/k/kmod-28-10.el9.x86_64.rpm
     repoid: ubi-9-baseos-rpms
     size: 132888
@@ -137,13 +144,6 @@ arches:
     name: shadow-utils-subid
     evr: 2:4.9-12.el9
     sourcerpm: shadow-utils-4.9-12.el9.src.rpm
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/os/Packages/j/jq-1.6-17.el9_6.2.x86_64.rpm
-    repoid: rhel-9-for-x86_64-baseos-rpms
-    size: 191681
-    checksum: sha256:d3c6d74db82f6c55533f2d9798d2d4e44988d212880b5b2afd855a43fe2b17d9
-    name: jq
-    evr: 1.6-17.el9_6.2
-    sourcerpm: jq-1.6-17.el9_6.2.src.rpm
   - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/os/Packages/o/oniguruma-6.9.6-1.el9.6.x86_64.rpm
     repoid: rhel-9-for-x86_64-baseos-rpms
     size: 226451
@@ -164,12 +164,12 @@ arches:
     checksum: sha256:e9d46b1c6c4ffa968a235504c57a721185ebc89bbc59e700589c908d0c1872f6
     name: criu
     evr: 3.19-1.el9
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/c/crun-1.21-1.el9_6.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/c/crun-1.22-1.el9_6.src.rpm
     repoid: ubi-9-appstream-source-rpms
-    size: 807870
-    checksum: sha256:691cc5c3d41daae07d0382bc08d167137f50454f4baeaa13b9a2c196f7e7f26a
+    size: 824093
+    checksum: sha256:f90bc0717e1e6192a81458b111da3dac9644babaa7af9462520f67eba7d4c880
     name: crun
-    evr: 1.21-1.el9_6
+    evr: 1.22-1.el9_6
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/appstream/source/SRPMS/Packages/f/fuse-overlayfs-1.14-1.el9.src.rpm
     repoid: ubi-9-appstream-source-rpms
     size: 114235
@@ -212,6 +212,12 @@ arches:
     checksum: sha256:ddfcd07bcdcc07bdabe0f05b2c5c3bb1d6582af9c6b127632dd74f8ca78d56c9
     name: fuse3
     evr: 3.10.2-9.el9
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/j/jq-1.6-17.el9_6.2.src.rpm
+    repoid: ubi-9-baseos-source-rpms
+    size: 1505374
+    checksum: sha256:88870e90abd12a46ac6da90154b82e5f4f3f5fbf5fb9116160e85875436aa8fa
+    name: jq
+    evr: 1.6-17.el9_6.2
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/k/kmod-28-10.el9.src.rpm
     repoid: ubi-9-baseos-source-rpms
     size: 582431
@@ -248,12 +254,6 @@ arches:
     checksum: sha256:26fa86de6d2a5c08e93fc51ec4859635e74bcaec9480641bbb69cfce12ca21ab
     name: shadow-utils
     evr: 2:4.9-12.el9
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/source/SRPMS/Packages/j/jq-1.6-17.el9_6.2.src.rpm
-    repoid: rhel-9-for-x86_64-baseos-source-rpms
-    size: 1505374
-    checksum: sha256:88870e90abd12a46ac6da90154b82e5f4f3f5fbf5fb9116160e85875436aa8fa
-    name: jq
-    evr: 1.6-17.el9_6.2
   - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/source/SRPMS/Packages/o/oniguruma-6.9.6-1.el9.6.src.rpm
     repoid: rhel-9-for-x86_64-baseos-source-rpms
     size: 935874
