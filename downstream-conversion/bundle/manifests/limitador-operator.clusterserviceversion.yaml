@@ -36,7 +36,7 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Integration & Delivery
-    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador-operator@sha256:f22055181cc465533e7f580d9e21461bf671410709000f2d7c1755d1ffe77167
+    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador-operator@sha256:c34b20e56fe1dd40a9d473d957614ff06ac030f1953e411a94d2952e38669655
     createdAt: "2025-05-02T14:33:12Z"
     description: The Limitador operator installs and maintains limitador instances
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
@@ -158,7 +158,7 @@ spec:
                 env:
                 - name: RELATED_IMAGE_LIMITADOR
                   value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador@sha256:aa17e2767b2fb3a2a099879a7b5d564051e1cb1492ecc6ef494c1d261ced8dfe
-                image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador-operator@sha256:f22055181cc465533e7f580d9e21461bf671410709000f2d7c1755d1ffe77167
+                image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-1-limitador-operator@sha256:c34b20e56fe1dd40a9d473d957614ff06ac030f1953e411a94d2952e38669655
                 livenessProbe:
                   httpGet:
                     path: /healthz
