@@ -43,7 +43,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -ldflags "${LDF
 
 FROM registry.redhat.io/ubi9/ubi-minimal@sha256:7c5495d5fad59aaee12abc3cbbd2b283818ee1e814b00dbc7f25bf2d14fa4f0c
 
-LABEL version="0.14.0" \
+LABEL version="0.16.0" \
       summary="Enables rate limiting for Gateways and applications in a Gateway API network" \
       description="Enables rate limiting for Gateways and applications in a Gateway API network" \
       com.redhat.component="limitador-operator" \
