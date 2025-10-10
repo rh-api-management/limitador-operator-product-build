@@ -31,7 +31,7 @@ LABEL operators.operatorframework.io.metrics.project_layout=go.kubebuilder.io/v3
 LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
-LABEL version="1.1.1" \
+LABEL version="1.2.0" \
       summary="Enables rate limiting for Gateways and applications in a Gateway API network" \
       name="Limitador Operator Bundle" \
       description="Enables rate limiting for Gateways and applications in a Gateway API network" \
@@ -41,7 +41,7 @@ LABEL version="1.1.1" \
       io.openshift.tags="api" \
       url="" \
       distribution-scope="public" \
-      release="1.1.1" \
+      release="1.2.0" \
       url="" \
       com.redhat.component="Red Hat Connectivity Link Operator Bundle" \
       vendor="Red Hat, Inc."
