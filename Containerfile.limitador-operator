@@ -1,7 +1,7 @@
 # Based on ./gatekeeper-operator/Dockerfile
 # Build the manager binary
 
-FROM registry.redhat.io/ubi9/go-toolset@sha256:c06c8764041cceae3ef35962b44043bfea534ad336d2cb14cafb5d0c384a5b5e AS drift-detectorist
+FROM registry.redhat.io/ubi9/go-toolset@sha256:380d6de9bbc5a42ca13d425be99958fb397317664bb8a00e49d464e62cc8566c AS drift-detectorist
 USER 0
 COPY drift-detection/detector.sh /detector.sh
 # Check to see if we need to react to any upstream changes
@@ -10,7 +10,7 @@ WORKDIR /tmp
 COPY limitador-operator/Dockerfile .
 RUN /detector.sh ./Dockerfile /drift-cache/limitador-operator/Dockerfile
 
-FROM registry.redhat.io/ubi9/go-toolset@sha256:c06c8764041cceae3ef35962b44043bfea534ad336d2cb14cafb5d0c384a5b5e AS builder
+FROM registry.redhat.io/ubi9/go-toolset@sha256:380d6de9bbc5a42ca13d425be99958fb397317664bb8a00e49d464e62cc8566c AS builder
 
 # TODO: cleanup if not needed
 #ENV LDFLAGS="-X ${VERSION_PKG}.gitVersion=v3.15.1-7 \
