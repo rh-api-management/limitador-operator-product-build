@@ -4,8 +4,8 @@
 
 # CSV metadata
 csv:
-  name: limitador-operator.v0.16.0
-  version: "0.16.0"
+  name: limitador-operator.v1.2.0
+  version: "1.2.0"
   displayName: Limitador Operator
   description: "The Limitador operator installs and maintains limitador instances for Red Hat Connectivity Link."
   icon:
