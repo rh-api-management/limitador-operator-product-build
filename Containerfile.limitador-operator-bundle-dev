@@ -32,6 +32,6 @@ LABEL version="1.2.0" \
       vendor="Red Hat, Inc."
 
 # Copy files to locations specified by labels.
-COPY --from=builder /manifests /manifests/
-COPY --from=builder /metadata /metadata/
+COPY /bundle-dev/manifests /manifests/
+COPY /bundle-dev/metadata /metadata/
 COPY limitador-operator/bundle/tests/scorecard /tests/scorecard/
