@@ -13,6 +13,7 @@ PROJECT_ROOT="${SCRIPT_DIR}/.."
 UPSTREAM_BUNDLE="${PROJECT_ROOT}/limitador-operator/bundle"
 IMAGE_PULLSPECS="${PROJECT_ROOT}/image-pullspecs.yaml"
 LIMITADOR_CONFIG="${SCRIPT_DIR}/limitador-operator.yaml"
+ANNOTATIONS_FILE="${SCRIPT_DIR}/annotations.yaml"
 
 # Check dependencies
 if ! command -v yq &> /dev/null; then
@@ -107,9 +108,9 @@ for env in dev stage prod; do
     rm -rf "${output_dir}"
     mkdir -p "${manifests_dir}" "${metadata_dir}"
 
-    # Copy all manifests from upstream
+    # Copy manifests from upstream and metadata from script directory
     cp "${UPSTREAM_BUNDLE}/manifests/"*.yaml "${manifests_dir}/"
-    cp "${UPSTREAM_BUNDLE}/metadata/"*.yaml "${metadata_dir}/"
+    cp "${ANNOTATIONS_FILE}" "${metadata_dir}/"
 
     CSV_FILE="${manifests_dir}/limitador-operator.clusterserviceversion.yaml"
 
