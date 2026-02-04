@@ -37,7 +37,7 @@ metadata:
     capabilities: Basic Install
     categories: Integration & Delivery
     containerImage: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:6092c510b04a4cee253a52c07b77b625e90d863fa9ccd8727eb901bd81b4e071
-    createdAt: "2025-10-03T10:17:09Z"
+    createdAt: "2026-02-04T12:54:29Z"
     description: The Limitador operator installs and maintains limitador instances
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
@@ -54,7 +54,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: limitador-operator.v0.16.0
+  name: limitador-operator.v0.17.0
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -90,6 +90,7 @@ spec:
                 - delete
                 - get
                 - list
+                - patch
                 - update
                 - watch
             - apiGroups:
@@ -98,6 +99,7 @@ spec:
                 - pods
               verbs:
                 - list
+                - patch
                 - update
                 - watch
             - apiGroups:
@@ -109,6 +111,7 @@ spec:
                 - delete
                 - get
                 - list
+                - patch
                 - update
                 - watch
             - apiGroups:
@@ -146,6 +149,7 @@ spec:
                 - delete
                 - get
                 - list
+                - patch
                 - update
                 - watch
           serviceAccountName: limitador-operator-controller-manager
@@ -261,4 +265,4 @@ spec:
   relatedImages:
     - image: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:aff28d76f9cfeefafd6b652e055bb25e1a2bf250e062e3e9b5e54db873f9eeb7
       name: limitador
-  version: 0.16.0
+  version: 0.17.0
