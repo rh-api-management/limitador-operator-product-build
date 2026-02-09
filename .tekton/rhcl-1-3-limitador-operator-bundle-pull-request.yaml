@@ -12,7 +12,7 @@ metadata:
   creationTimestamp: null
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: rhcl-1-3-limitador
+    appstudio.openshift.io/application: rhcl-1-3-limitador-operator
     appstudio.openshift.io/component: rhcl-1-3-limitador-operator-bundle
     pipelines.appstudio.openshift.io/type: build
   name: rhcl-1-3-limitador-operator-bundle-on-pull-request
