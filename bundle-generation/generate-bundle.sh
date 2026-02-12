@@ -154,6 +154,8 @@ for env in dev stage prod; do
     yq -i '.metadata.labels["operatorframework.io/arch.arm64"] = "'"$(yq '.architectures.arm64' "$LIMITADOR_CONFIG")"'"' "${CSV_FILE}"
 
     # Update CSV: Set display name and description
+    yq -i ".metadata.name = \"${CSV_NAME}\"" "${CSV_FILE}"
+    yq -i ".spec.version = \"${CSV_VERSION}\"" "${CSV_FILE}"
     yq -i ".spec.displayName = \"${DISPLAY_NAME}\"" "${CSV_FILE}"
     yq -i ".spec.description = \"${DESCRIPTION}\"" "${CSV_FILE}"
 
