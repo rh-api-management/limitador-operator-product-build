@@ -54,7 +54,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: limitador-operator.v0.17.0
+  name: limitador-operator.v1.3.0
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -265,4 +265,4 @@ spec:
   relatedImages:
     - image: registry.redhat.io/rhcl-1/limitador-rhel9@sha256:e72134371ca05c55dc3e2a86d4cbfb5fb6f0f1f84874db2f00933c13f9660fc5
       name: limitador
-  version: 0.17.0
+  version: 1.3.0
