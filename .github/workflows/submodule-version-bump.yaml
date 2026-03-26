@@ -1,0 +1,132 @@
+name: Submodule Version Bump
+
+on:
+  schedule:
+    # Run daily at 6:00 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  check-and-bump-version:
+    runs-on: ubuntu-latest
+    # Only run on the default branch
+    if: github.ref_name == github.event.repository.default_branch
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Fetch all tags from submodule
+        run: |
+          cd limitador-operator
+          git fetch --tags origin
+          cd ..
+
+      - name: Get current submodule version
+        id: current_version
+        run: |
+          cd limitador-operator
+          CURRENT_TAG=$(git describe --tags --exact-match 2>/dev/null || echo "")
+          if [ -z "$CURRENT_TAG" ]; then
+            # If not on a tag, get the closest tag
+            CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          fi
+          echo "tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_TAG"
+          cd ..
+
+      - name: Get latest semver tag from submodule
+        id: latest_version
+        run: |
+          cd limitador-operator
+          # Get all tags matching semver pattern (vX.Y.Z)
+          LATEST_TAG=$(git tag -l 'v[0-9]*.[0-9]*.[0-9]*' | sort -V | tail -n 1)
+          echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "Latest version: $LATEST_TAG"
+          cd ..
+
+      - name: Compare versions with semver
+        id: compare
+        uses: madhead/semver-utils@latest
+        with:
+          version: ${{ steps.latest_version.outputs.tag }}
+          compare-to: ${{ steps.current_version.outputs.tag }}
+
+      - name: Update submodule to latest tag
+        if: steps.compare.outputs.comparison-result == '>'
+        run: |
+          LATEST_TAG="${{ steps.latest_version.outputs.tag }}"
+          echo "Updating from ${{ steps.current_version.outputs.tag }} to $LATEST_TAG"
+          cd limitador-operator
+          git fetch --tags
+          git checkout "$LATEST_TAG"
+          cd ..
+
+      - name: Update version in Containerfile
+        if: steps.compare.outputs.comparison-result == '>'
+        run: |
+          LATEST_TAG="${{ steps.latest_version.outputs.tag }}"
+          VERSION_NUM=${LATEST_TAG#v}
+
+          # Update the LABEL version line in Containerfile.limitador-operator
+          sed -i "s/^LABEL version=\"[^\"]*\"/LABEL version=\"$VERSION_NUM\"/" Containerfile.limitador-operator
+
+          echo "Updated Containerfile.limitador-operator version to $VERSION_NUM"
+          cat Containerfile.limitador-operator | grep "LABEL version"
+
+      - name: Create Pull Request
+        if: steps.compare.outputs.comparison-result == '>'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Bump limitador-operator submodule to ${{ steps.latest_version.outputs.tag }}
+
+            This automated update bumps the limitador-operator submodule to ${{ steps.latest_version.outputs.tag }}
+            and updates the version in Containerfile.limitador-operator accordingly.
+
+            Updated files:
+            - limitador-operator submodule -> ${{ steps.latest_version.outputs.tag }}
+            - Containerfile.limitador-operator version label
+          branch: auto/bump-limitador-operator-${{ steps.latest_version.outputs.tag }}
+          delete-branch: true
+          title: 'chore: Bump limitador-operator to ${{ steps.latest_version.outputs.tag }}'
+          body: |
+            ## Summary
+
+            This automated PR bumps the limitador-operator submodule from `${{ steps.current_version.outputs.tag }}` to `${{ steps.latest_version.outputs.tag }}`.
+
+            ## Changes
+            - Updated limitador-operator submodule to tag ${{ steps.latest_version.outputs.tag }}
+            - Updated version in `Containerfile.limitador-operator` to match
+
+            ## Testing
+            - [ ] Verify the submodule points to the correct tag
+            - [ ] Check that the Containerfile version matches the submodule tag
+            - [ ] Run build tests to ensure compatibility
+
+            ---
+            🤖 This PR was automatically created by the [submodule-version-bump workflow](.github/workflows/submodule-version-bump.yaml)
+          labels: |
+            automated
+            dependencies
+          draft: false
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Version Check Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Current version: ${{ steps.current_version.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Latest version: ${{ steps.latest_version.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Comparison: ${{ steps.compare.outputs.comparison-result }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.compare.outputs.comparison-result }}" = ">" ]; then
+            echo "- PR created: ✅" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- No update needed" >> $GITHUB_STEP_SUMMARY
+          fi
