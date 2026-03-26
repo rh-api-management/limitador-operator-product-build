@@ -36,7 +36,7 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Integration & Delivery
-    containerImage: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:847bbac8f3ae282936009372a28c3fa3f0e9513c2f151ff475b1d5a26f69cbd5
+    containerImage: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:b609375b9f8e807d97bdb35439bdb24e87f4959be495602c96de5cef7313b3e3
     createdAt: "2026-02-18T13:31:15Z"
     description: The Limitador operator installs and maintains limitador instances
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
