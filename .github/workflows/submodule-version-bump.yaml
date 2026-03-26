@@ -23,15 +23,13 @@ jobs:
           fetch-depth: 0
 
       - name: Fetch all tags from submodule
-        run: |
-          cd limitador-operator
-          git fetch --tags origin
-          cd ..
+        working-directory: limitador-operator
+        run: git fetch --tags origin
 
       - name: Get current submodule version
         id: current_version
+        working-directory: limitador-operator
         run: |
-          cd limitador-operator
           CURRENT_TAG=$(git describe --tags --exact-match 2>/dev/null || echo "")
           if [ -z "$CURRENT_TAG" ]; then
             # If not on a tag, get the closest tag
@@ -39,17 +37,15 @@ jobs:
           fi
           echo "tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
           echo "Current version: $CURRENT_TAG"
-          cd ..
 
       - name: Get latest semver tag from submodule
         id: latest_version
+        working-directory: limitador-operator
         run: |
-          cd limitador-operator
           # Get all tags matching semver pattern (vX.Y.Z)
           LATEST_TAG=$(git tag -l 'v[0-9]*.[0-9]*.[0-9]*' | sort -V | tail -n 1)
           echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
           echo "Latest version: $LATEST_TAG"
-          cd ..
 
       - name: Compare versions with semver
         id: compare
@@ -60,13 +56,12 @@ jobs:
 
       - name: Update submodule to latest tag
         if: steps.compare.outputs.comparison-result == '>'
+        working-directory: limitador-operator
         run: |
           LATEST_TAG="${{ steps.latest_version.outputs.tag }}"
           echo "Updating from ${{ steps.current_version.outputs.tag }} to $LATEST_TAG"
-          cd limitador-operator
           git fetch --tags
           git checkout "$LATEST_TAG"
-          cd ..
 
       - name: Update version in Containerfile
         if: steps.compare.outputs.comparison-result == '>'
