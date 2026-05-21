@@ -4,8 +4,8 @@
 
 # CSV metadata
 csv:
-  name: limitador-operator.v1.3.0
-  version: "1.3.0"
+  name: limitador-operator.v1.4.0
+  version: "1.4.0"
   displayName: Limitador Operator
   description: "Enables rate limiting for Gateways and applications in a Gateway API network. Part of Red Hat Connectivity Link"
   icon:
