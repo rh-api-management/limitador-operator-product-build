@@ -47,11 +47,50 @@ jobs:
             echo "changes=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commit and push changes
-        if: steps.changes.outputs.changes == 'true'
+      - name: Commit and push changes (for PRs)
+        if: steps.changes.outputs.changes == 'true' && github.event_name == 'pull_request'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Generate Bundles after change to image-pullspecs.yaml or limitador-operator.yaml
+
+      - name: Create PR for bundle changes (for protected branches)
+        if: steps.changes.outputs.changes == 'true' && github.event_name == 'push'
+        id: create-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the current branch name
+          CURRENT_BRANCH="${{ github.ref_name }}"
+          # Create a new branch for the bundle changes
+          NEW_BRANCH="bundle-changes-${CURRENT_BRANCH}-$(date +%Y%m%d-%H%M%S)"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Create and switch to new branch
+          git checkout -b "$NEW_BRANCH"
+
+          # Commit the changes
+          git add ./bundle ./bundle-dev ./bundle-stage
+          git commit -m "Generate Bundles after change to image-pullspecs.yaml or limitador-operator.yaml"
+
+          # Push the new branch
+          git push origin "$NEW_BRANCH"
+
+          # Create a pull request
+          gh pr create \
+            --title "Auto-generated bundle updates for $CURRENT_BRANCH" \
+            --body "This PR was automatically created by the Generate Bundle workflow.
+
+          ## Changes
+          - Regenerated bundles after changes to image-pullspecs.yaml or limitador-operator.yaml
+
+          ## Base Branch
+          \`$CURRENT_BRANCH\`
+
+          Please review and merge if the changes look correct." \
+            --base "$CURRENT_BRANCH" \
+            --head "$NEW_BRANCH"
 
       - name: Validate bundles
         run: make validate-bundle
