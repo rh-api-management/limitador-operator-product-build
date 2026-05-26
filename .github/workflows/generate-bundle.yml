@@ -55,42 +55,27 @@ jobs:
 
       - name: Create PR for bundle changes (for protected branches)
         if: steps.changes.outputs.changes == 'true' && github.event_name == 'push'
-        id: create-pr
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Get the current branch name
-          CURRENT_BRANCH="${{ github.ref_name }}"
-          # Create a new branch for the bundle changes
-          NEW_BRANCH="bundle-changes-${CURRENT_BRANCH}-$(date +%Y%m%d-%H%M%S)"
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Generate Bundles after change to image-pullspecs.yaml or limitador-operator.yaml
+          branch: bundle-changes-${{ github.ref_name }}
+          delete-branch: true
+          title: 'Auto-generated bundle updates for ${{ github.ref_name }}'
+          body: |
+            ## Summary
+            This PR was automatically created by the Generate Bundle workflow.
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            ## Changes
+            - Regenerated bundles after changes to image-pullspecs.yaml or limitador-operator.yaml
 
-          # Create and switch to new branch
-          git checkout -b "$NEW_BRANCH"
+            ## Base Branch
+            `${{ github.ref_name }}`
 
-          # Commit the changes
-          git add ./bundle ./bundle-dev ./bundle-stage
-          git commit -m "Generate Bundles after change to image-pullspecs.yaml or limitador-operator.yaml"
-
-          # Push the new branch
-          git push origin "$NEW_BRANCH"
-
-          # Create a pull request
-          gh pr create \
-            --title "Auto-generated bundle updates for $CURRENT_BRANCH" \
-            --body "This PR was automatically created by the Generate Bundle workflow.
-
-          ## Changes
-          - Regenerated bundles after changes to image-pullspecs.yaml or limitador-operator.yaml
-
-          ## Base Branch
-          \`$CURRENT_BRANCH\`
-
-          Please review and merge if the changes look correct." \
-            --base "$CURRENT_BRANCH" \
-            --head "$NEW_BRANCH"
+            Please review and merge if the changes look correct.
+          labels: |
+            automated
+            bundle
 
       - name: Validate bundles
         run: make validate-bundle
