@@ -47,11 +47,35 @@ jobs:
             echo "changes=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commit and push changes
-        if: steps.changes.outputs.changes == 'true'
+      - name: Commit and push changes (for PRs)
+        if: steps.changes.outputs.changes == 'true' && github.event_name == 'pull_request'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Generate Bundles after change to image-pullspecs.yaml or limitador-operator.yaml
+
+      - name: Create PR for bundle changes (for protected branches)
+        if: steps.changes.outputs.changes == 'true' && github.event_name == 'push'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Generate Bundles after change to image-pullspecs.yaml or limitador-operator.yaml
+          branch: bundle-changes-${{ github.ref_name }}
+          delete-branch: true
+          title: 'Auto-generated bundle updates for ${{ github.ref_name }}'
+          body: |
+            ## Summary
+            This PR was automatically created by the Generate Bundle workflow.
+
+            ## Changes
+            - Regenerated bundles after changes to image-pullspecs.yaml or limitador-operator.yaml
+
+            ## Base Branch
+            `${{ github.ref_name }}`
+
+            Please review and merge if the changes look correct.
+          labels: |
+            automated
+            bundle
 
       - name: Validate bundles
         run: make validate-bundle
