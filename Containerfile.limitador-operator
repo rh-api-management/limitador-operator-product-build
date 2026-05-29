@@ -1,16 +1,4 @@
-# Based on ./gatekeeper-operator/Dockerfile
-# Build the manager binary
-
-FROM registry.redhat.io/ubi9/go-toolset@sha256:2830e4bd1c394ed506c00a9abbb4d00445e2e72e8ef4e3cd51e0da0db66dee12 AS drift-detectorist
-USER 0
-COPY drift-detection/detector.sh /detector.sh
-# Check to see if we need to react to any upstream changes
-COPY drift-cache /drift-cache
-WORKDIR /tmp
-COPY limitador-operator/Dockerfile .
-RUN /detector.sh ./Dockerfile /drift-cache/limitador-operator/Dockerfile
-
-FROM registry.redhat.io/ubi9/go-toolset@sha256:2830e4bd1c394ed506c00a9abbb4d00445e2e72e8ef4e3cd51e0da0db66dee12 AS builder
+FROM registry.redhat.io/ubi9/go-toolset:latest AS builder
 
 # TODO: cleanup if not needed
 #ENV LDFLAGS="-X ${VERSION_PKG}.gitVersion=v3.15.1-7 \
@@ -41,7 +29,7 @@ COPY limitador-operator/LICENSE /licenses/LICENSE
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -ldflags "${LDFLAGS}$(date -u +'%Y-%m-%dT%H:%M:%SZ')" -o ${BINARY_NAME} main.go
 
 
-FROM registry.redhat.io/ubi9/ubi-minimal@sha256:83006d535923fcf1345067873524a3980316f51794f01d8655be55d6e9387183
+FROM registry.redhat.io/ubi9/ubi-minimal:latest
 
 LABEL version="0.18.1" \
       summary="Enables rate limiting for Gateways and applications in a Gateway API network" \
