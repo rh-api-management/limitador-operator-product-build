@@ -10,7 +10,6 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
       == "rhcl-1.4" && ( "limitador-operator".pathChanged() || "Containerfile.limitador-operator".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/".pathChanged() || ".tekton/rhcl-1-4-limitador-operator-push.yaml".pathChanged() || ".tekton/multi-arch-build-pipeline.yaml".pathChanged() )
   creationTimestamp: null
-  creationTimestamp: null
   labels:
     appstudio.openshift.io/application: rhcl-1-4-limitador-operator
     appstudio.openshift.io/component: rhcl-1-4-limitador-operator

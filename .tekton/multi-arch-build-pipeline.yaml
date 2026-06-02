@@ -50,6 +50,8 @@ spec:
       value: $(params.output-image).prefetch
     - name: ociArtifactExpiresAfter
       value: $(params.image-expires-after)
+    - name: enable-package-registry-proxy
+      value: $(params.enable-package-registry-proxy)
     runAfter:
     - clone-repository
     taskRef:
@@ -115,10 +117,6 @@ spec:
     params:
     - name: IMAGE
       value: $(params.output-image)
-    - name: COMMIT_SHA
-      value: $(tasks.clone-repository.results.commit)
-    - name: IMAGE_EXPIRES_AFTER
-      value: $(params.image-expires-after)
     - name: ALWAYS_BUILD_INDEX
       value: $(params.build-image-index)
     - name: IMAGES
@@ -133,7 +131,7 @@ spec:
       - name: name
         value: build-image-index
       - name: bundle
-        value: quay.io/konflux-ci/tekton-catalog/task-build-image-index:0.2@sha256:5b51ebe8076412bea2703249c0e92472e240d2a44d90b8768dfe076e918c4391
+        value: quay.io/konflux-ci/tekton-catalog/task-build-image-index:0.3@sha256:b33bfa8dc27dbf459f0779598ba45dcaa490bcc9f8efe1652bcf360ec8cb5582
       - name: kind
         value: task
       resolver: bundles
@@ -247,6 +245,8 @@ spec:
       value: $(tasks.prefetch-dependencies.results.SOURCE_ARTIFACT)
     - name: CACHI2_ARTIFACT
       value: $(tasks.prefetch-dependencies.results.CACHI2_ARTIFACT)
+    - name: TARGET_DIRS
+      value: $(params.sast-target-dirs)
     runAfter:
     - build-image-index
     taskRef:
@@ -362,6 +362,8 @@ spec:
       value: $(tasks.prefetch-dependencies.results.SOURCE_ARTIFACT)
     - name: CACHI2_ARTIFACT
       value: $(tasks.prefetch-dependencies.results.CACHI2_ARTIFACT)
+    - name: TARGET_DIRS
+      value: $(params.sast-target-dirs)
     runAfter:
     - build-image-index
     taskRef:
@@ -388,6 +390,8 @@ spec:
       value: $(tasks.prefetch-dependencies.results.SOURCE_ARTIFACT)
     - name: CACHI2_ARTIFACT
       value: $(tasks.prefetch-dependencies.results.CACHI2_ARTIFACT)
+    - name: TARGET_DIRS
+      value: $(params.sast-target-dirs)
     runAfter:
     - build-image-index
     taskRef:
@@ -466,6 +470,14 @@ spec:
     default: docker
     type: string
     description: The format for the resulting image's mediaType. Valid values are oci or docker.
+  - name: sast-target-dirs
+    type: string
+    default: .
+    description: Target directories to scan with SAST tools. Multiple values should be separated with commas.
+  - name: enable-package-registry-proxy
+    default: 'true'
+    description: Use the package registry proxy when prefetching dependencies
+    type: string
   workspaces:
   - name: git-auth
     optional: true
