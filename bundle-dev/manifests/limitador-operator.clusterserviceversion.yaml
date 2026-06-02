@@ -36,8 +36,8 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Integration & Delivery
-    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator@sha256:847bbac8f3ae282936009372a28c3fa3f0e9513c2f151ff475b1d5a26f69cbd5
-    createdAt: "2026-02-18T13:31:15Z"
+    containerImage: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator@sha256:1ce27fcedc8ed1793bb679134e511f1a70826b680893b3f75aef264a5c679e7b
+    createdAt: "2026-06-02T07:35:04Z"
     description: The Limitador operator installs and maintains limitador instances
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
@@ -178,8 +178,8 @@ spec:
                       - /manager
                     env:
                       - name: RELATED_IMAGE_LIMITADOR
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador@sha256:7c4db9bbda6f0f5601bf242c16ce52da4332a08c08affdc1e6d982adb9357781
-                    image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator@sha256:847bbac8f3ae282936009372a28c3fa3f0e9513c2f151ff475b1d5a26f69cbd5
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador@sha256:ced58114c241e895901a44328101ac64373842f2c9fe71bf1adba7353ea7eed7
+                    image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator@sha256:1ce27fcedc8ed1793bb679134e511f1a70826b680893b3f75aef264a5c679e7b
                     livenessProbe:
                       httpGet:
                         path: /healthz
@@ -265,6 +265,6 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/limitador-operator
   relatedImages:
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador@sha256:7c4db9bbda6f0f5601bf242c16ce52da4332a08c08affdc1e6d982adb9357781
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador@sha256:ced58114c241e895901a44328101ac64373842f2c9fe71bf1adba7353ea7eed7
       name: limitador
   version: 1.4.0
