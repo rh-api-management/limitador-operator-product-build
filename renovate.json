@@ -6,7 +6,7 @@
         "tekton",
         "dockerfile",
         "custom.regex",
-        "rpm",
+        "rpm-lockfile",
         "github-actions"
     ],
     "automerge": true,
