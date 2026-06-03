@@ -41,7 +41,7 @@ COPY limitador-operator/LICENSE /licenses/LICENSE
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -ldflags "${LDFLAGS}$(date -u +'%Y-%m-%dT%H:%M:%SZ')" -o ${BINARY_NAME} main.go
 
 
-FROM registry.redhat.io/ubi9/ubi-minimal@sha256:5b74fce9d6e629942a0c6dc0f546c193e70d7f974d999a48c948c53dd3d36362
+FROM registry.redhat.io/ubi9/ubi-minimal@sha256:ae09ecc3d754bc1726cbda3e2599cc7839e09fe1cc547ce173cf669b645be3cc
 
 LABEL version="0.16.0" \
       summary="Enables rate limiting for Gateways and applications in a Gateway API network" \
