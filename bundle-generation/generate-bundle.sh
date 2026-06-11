@@ -170,6 +170,12 @@ for env in dev stage prod; do
     # Update CSV: Set documentation and repository links
     yq -i '.metadata.annotations.repository = "'"${REPO_URL}"'"' "${CSV_FILE}"
 
+    # Update CSV: Append additional RBAC rules to clusterPermissions
+    ADDITIONAL_RULES_COUNT=$(yq '.additionalClusterPermissions | length' "$LIMITADOR_CONFIG")
+    if [[ "$ADDITIONAL_RULES_COUNT" -gt 0 ]]; then
+        yq -i '.spec.install.spec.clusterPermissions[0].rules += load("'"$LIMITADOR_CONFIG"'").additionalClusterPermissions' "${CSV_FILE}"
+    fi
+
     # Update CSV: Remove replaces and skipRange (managed in catalog repo)
     yq -i 'del(.spec.replaces)' "${CSV_FILE}"
     yq -i 'del(.spec.skipRange)' "${CSV_FILE}"
