@@ -58,6 +58,26 @@ registries:
     operator: registry.redhat.io/rhcl-1/limitador-rhel9-operator
     limitador: registry.redhat.io/rhcl-1/limitador-rhel9
 
+# Additional RBAC rules to append to the CSV clusterPermissions
+additionalClusterPermissions:
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterrolebindings
+      - clusterroles
+      - rolebindings
+      - roles
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+      - bind
+      - escalate
+
 # Output directory mapping
 outputDirs:
   dev: bundle-dev
