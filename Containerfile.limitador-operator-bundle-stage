@@ -1,5 +1,5 @@
 # Based on ./gatekeeper-operator/bundle.Dockerfile
-FROM registry.redhat.io/ubi9/ubi@sha256:a729da793c5f57633fc0dfbe99ced541aedde3ea653d5344af5aabb49f5aeb89 AS builder
+FROM registry.redhat.io/ubi9/ubi@sha256:37a15896602263cb998cd3c21919efb433adf9dbd3a7c961da5d8e3083a0db82 AS builder
 
 RUN dnf install -y skopeo jq python3 python3-pip && \
     pip3 install ruamel.yaml
