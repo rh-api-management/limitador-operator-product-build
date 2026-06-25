@@ -1,4 +1,4 @@
 [submodule "limitador-operator"]
 	path = limitador-operator
 	url = https://github.com/Kuadrant/limitador-operator
-	branch = main
+	branch = release-v0.17.1
