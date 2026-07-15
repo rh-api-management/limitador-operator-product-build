@@ -36,8 +36,8 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Integration & Delivery
-    containerImage: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:183bad2a6f5872aea38f54ad507f7e005d6facb02b18769e0407c82799f96a3e
-    createdAt: "2026-06-02T07:35:04Z"
+    containerImage: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:5261170dafd0c9b5a89d3509ada864624e4aaf62a7763bf595980de5b450cc04
+    createdAt: "2026-07-15T08:41:16Z"
     description: The Limitador operator installs and maintains limitador instances
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
@@ -54,7 +54,7 @@ metadata:
     features.operators.openshift.io/cni: "false"
     features.operators.openshift.io/csi: "false"
     operators.openshift.io/valid-subscription: '["Red Hat Connectivity Link"]'
-  name: limitador-operator.v1.4.0
+  name: limitador-operator.v1.4.1
   namespace: placeholder
   labels:
     operatorframework.io/os.linux: supported
@@ -178,8 +178,8 @@ spec:
                       - /manager
                     env:
                       - name: RELATED_IMAGE_LIMITADOR
-                        value: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:869b8d91349598584443e490d6cab24ace719e46fb7e9defec2009311be9797c
-                    image: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:183bad2a6f5872aea38f54ad507f7e005d6facb02b18769e0407c82799f96a3e
+                        value: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:0b02c000d9a175235223ec5916345a1ccedeedc25c87cc0638e8554e6c318474
+                    image: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:5261170dafd0c9b5a89d3509ada864624e4aaf62a7763bf595980de5b450cc04
                     livenessProbe:
                       httpGet:
                         path: /healthz
@@ -267,4 +267,4 @@ spec:
   relatedImages:
     - image: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:869b8d91349598584443e490d6cab24ace719e46fb7e9defec2009311be9797c
       name: limitador
-  version: 1.4.0
+  version: 1.4.1

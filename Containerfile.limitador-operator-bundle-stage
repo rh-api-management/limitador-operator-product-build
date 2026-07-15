@@ -1,5 +1,5 @@
 # Based on ./gatekeeper-operator/bundle.Dockerfile
-FROM registry.redhat.io/ubi9/ubi@sha256:8bf0e8f20737e9c8a68c8a498299e9504ab397b1b1f2837acb2fef12ec698f0e AS builder
+FROM registry.redhat.io/ubi9/ubi@sha256:d99e89bd03ec3204d8c70af2fe643263fe0ecc5f0f7695f36cb14d96fd6b9046 AS builder
 
 RUN dnf install -y skopeo jq python3 python3-pip && \
     pip3 install ruamel.yaml
@@ -31,7 +31,7 @@ LABEL operators.operatorframework.io.metrics.project_layout=go.kubebuilder.io/v3
 LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
-LABEL version="1.4.0" \
+LABEL version="1.4.1" \
       summary="Enables rate limiting for Gateways and applications in a Gateway API network" \
       name="rhcl-1/limitador-operator-bundle" \
       cpe="cpe:/a:redhat:connectivity_link:1::el9" \
@@ -42,7 +42,7 @@ LABEL version="1.4.0" \
       io.openshift.tags="api" \
       url="" \
       distribution-scope="public" \
-      release="1.4.0" \
+      release="1.4.1" \
       url="" \
       com.redhat.component="Red Hat Connectivity Link Operator Bundle" \
       vendor="Red Hat, Inc."
