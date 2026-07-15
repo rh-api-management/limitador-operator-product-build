@@ -2,4 +2,4 @@
 # This file is updated automatically by Konflux
 images:
   operator: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator@sha256:5261170dafd0c9b5a89d3509ada864624e4aaf62a7763bf595980de5b450cc04
-  limitador: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador@sha256:0b02c000d9a175235223ec5916345a1ccedeedc25c87cc0638e8554e6c318474
+  limitador: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador@sha256:869b8d91349598584443e490d6cab24ace719e46fb7e9defec2009311be9797c
