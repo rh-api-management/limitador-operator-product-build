@@ -26,7 +26,7 @@ COPY limitador-operator/pkg/ pkg/
 COPY limitador-operator/LICENSE /licenses/LICENSE
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -a -ldflags "${LDFLAGS}$(date -u +'%Y-%m-%dT%H:%M:%SZ')" -o ${BINARY_NAME} main.go
+RUN CGO_ENABLED=1 GOEXPERIMENT=strictfipsruntime GOOS=linux GOARCH=$(go env GOARCH) go build -a -tags strictfipsruntime -ldflags "${LDFLAGS}$(date -u +'%Y-%m-%dT%H:%M:%SZ')" -o ${BINARY_NAME} main.go
 
 
 FROM registry.redhat.io/ubi9/ubi-minimal:latest
