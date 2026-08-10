@@ -154,6 +154,14 @@ spec:
                 - patch
                 - update
                 - watch
+            - apiGroups:
+                - networking.k8s.io
+              resources:
+                - networkpolicies
+              verbs:
+                - create
+                - delete
+                - update
           serviceAccountName: limitador-operator-controller-manager
       deployments:
         - label:
