@@ -43,10 +43,10 @@ architectures:
   os.linux: supported
 
 # Registry mappings for each environment
-# SHAs are extracted from the dev images in image-pullspecs.yaml
+# SHAs are extracted from the dev images in bundle-generation/image-pullspecs/
 registries:
   dev:
-    # Uses images directly from image-pullspecs.yaml
+    # Uses images directly from bundle-generation/image-pullspecs/
     operator: null
     limitador: null
   stage:
