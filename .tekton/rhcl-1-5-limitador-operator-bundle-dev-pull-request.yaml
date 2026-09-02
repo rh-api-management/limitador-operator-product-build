@@ -8,13 +8,13 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/cancel-in-progress: "true"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "rhcl-1.4" && ( "limitador-operator".pathChanged() || "Containerfile.limitador-operator".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/".pathChanged() || ".tekton/rhcl-1-4-limitador-operator-pull-request.yaml".pathChanged() || ".tekton/multi-arch-build-pipeline.yaml".pathChanged() )
+    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "rhcl-1.5" && ( "bundle-dev/*".pathChanged() || "Containerfile.limitador-operator-bundle-dev".pathChanged() || "rpms.lock.yaml".pathChanged() || "config/*".pathChanged() || ".tekton/rhcl-1-5-limitador-operator-bundle-dev-pull-request.yaml".pathChanged() || ".tekton/bundle-build-pipeline.yaml".pathChanged() )
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: rhcl-1-4-limitador-operator
-    appstudio.openshift.io/component: rhcl-1-4-limitador-operator
+    appstudio.openshift.io/application: rhcl-1-5-limitador-operator
+    appstudio.openshift.io/component: rhcl-1-5-limitador-operator-bundle-dev
     pipelines.appstudio.openshift.io/type: build
-  name: rhcl-1-4-limitador-operator-on-pull-request
+  name: rhcl-1-5-limitador-operator-bundle-dev-on-pull-request
   namespace: api-management-tenant
 spec:
   params:
@@ -23,17 +23,17 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator:on-pr-{{revision}}
+    value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador-operator-bundle-dev:on-pr-{{revision}}
   - name: image-expires-after
     value: 5d
   - name: dockerfile
-    value: Containerfile.limitador-operator
+    value: Containerfile.limitador-operator-bundle-dev
   - name: prefetch-input
-    value: '[{"type": "rpm", "path": "."}, {"type": "gomod", "path": "./limitador-operator"}, {"type": "pip", "path": "."}]'
+    value: '[{"type": "rpm", "path": "."}]'
   pipelineRef:
-    name: build-pipeline
+    name: bundle-build-pipeline
   taskRunTemplate:
-    serviceAccountName: build-pipeline-rhcl-1-4-limitador-operator
+    serviceAccountName: build-pipeline-rhcl-1-5-limitador-operator-bundle-dev
   workspaces:
   - name: git-auth
     secret:
