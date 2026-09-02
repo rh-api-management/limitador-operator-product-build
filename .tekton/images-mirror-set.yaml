@@ -6,13 +6,13 @@ spec:
   imageDigestMirrors:
     - source: registry.redhat.io/rhcl-1/limitador-rhel9-operator
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador-operator
     - source: registry.redhat.io/rhcl-1/limitador-rhel9
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador
     - source: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador-operator
     - source: registry.stage.redhat.io/rhcl-1/limitador-rhel9
       mirrors:
-        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador
+        - quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador
