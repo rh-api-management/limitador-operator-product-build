@@ -178,7 +178,7 @@ spec:
                       - /manager
                     env:
                       - name: RELATED_IMAGE_LIMITADOR
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador@sha256:64be0b85d1ea42b03d99a7058de90633f0fe8a1b21d73748b0ad730344b47a2f
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador@sha256:025f17aeaad90cefb9d97bfc42f0b6a6834e8ae6b7515c2fe1e0b8cad4c5c0a8
                     image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador-operator@sha256:d2efd9d7e7475a870b11cfad30649995dd585036ce946f1d025f479ebb002f17
                     livenessProbe:
                       httpGet:
@@ -265,6 +265,6 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/limitador-operator
   relatedImages:
-    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador@sha256:64be0b85d1ea42b03d99a7058de90633f0fe8a1b21d73748b0ad730344b47a2f
+    - image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador@sha256:025f17aeaad90cefb9d97bfc42f0b6a6834e8ae6b7515c2fe1e0b8cad4c5c0a8
       name: limitador
   version: 1.5.0
