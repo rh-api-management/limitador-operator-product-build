@@ -1,3 +1,3 @@
 # Image pullspec for Limitador Operator bundle
 # This file is updated automatically by Konflux
-image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator@sha256:d8240738fd6a1fac2d77773af9f02a067c74c711e61d39f968d3cc42b836d7ba
+image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-4-limitador-operator@sha256:7fdc92b22c7d74e68e71ebf54d1c680fc8dbd47198286dc4f7f87b3d4b31472e
