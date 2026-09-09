@@ -178,7 +178,7 @@ spec:
                       - /manager
                     env:
                       - name: RELATED_IMAGE_LIMITADOR
-                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador@sha256:64be0b85d1ea42b03d99a7058de90633f0fe8a1b21d73748b0ad730344b47a2f
+                        value: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador@sha256:17f5ee165f3669b1eb6fd088c354b13c775f47a4f78d285cdd42a2584653f75a
                     image: quay.io/redhat-user-workloads/api-management-tenant/rhcl-1-5-limitador-operator@sha256:1451694dff0c8477f26ba1be60294c6f20f32109dae5f2c7a2a716c9a742a12f
                     livenessProbe:
                       httpGet:
