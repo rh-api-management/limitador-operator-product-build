@@ -36,7 +36,7 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Integration & Delivery
-    containerImage: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:7fdc92b22c7d74e68e71ebf54d1c680fc8dbd47198286dc4f7f87b3d4b31472e
+    containerImage: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:7f015d680e2aba1b7351549932741e1493c6e71a2cef753a5a8593436530a468
     createdAt: "2026-08-27T12:29:43Z"
     description: The Limitador operator installs and maintains limitador instances
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
@@ -179,7 +179,7 @@ spec:
                     env:
                       - name: RELATED_IMAGE_LIMITADOR
                         value: registry.redhat.io/rhcl-1/limitador-rhel9@sha256:793a38ce1b5690b99bc20fb7fca3304727d5fb21fcf440ab88f3e7af5778a751
-                    image: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:7fdc92b22c7d74e68e71ebf54d1c680fc8dbd47198286dc4f7f87b3d4b31472e
+                    image: registry.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:7f015d680e2aba1b7351549932741e1493c6e71a2cef753a5a8593436530a468
                     livenessProbe:
                       httpGet:
                         path: /healthz
