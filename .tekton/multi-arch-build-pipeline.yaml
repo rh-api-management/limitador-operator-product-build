@@ -414,6 +414,66 @@ spec:
       operator: in
       values:
       - "false"
+  - name: validate-crypto-policy
+    params:
+    - name: IMAGE_URL
+      value: $(tasks.build-image-index.results.IMAGE_URL)
+    - name: IMAGE_DIGEST
+      value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+    runAfter:
+    - build-image-index
+    when:
+    - input: $(params.skip-checks)
+      operator: in
+      values:
+      - "false"
+    taskSpec:
+      params:
+      - name: IMAGE_URL
+        type: string
+      - name: IMAGE_DIGEST
+        type: string
+      results:
+      - name: CRYPTO_POLICY
+        description: The crypto policy found in the built image.
+      steps:
+      - name: check-crypto-policy
+        image: quay.io/konflux-ci/konflux-test:latest
+        env:
+        - name: IMAGE_URL
+          value: $(params.IMAGE_URL)
+        - name: IMAGE_DIGEST
+          value: $(params.IMAGE_DIGEST)
+        - name: RESULT_PATH
+          value: $(results.CRYPTO_POLICY.path)
+        script: |
+          #!/usr/bin/env bash
+          set -euo pipefail
+          # shellcheck source=/dev/null
+          . /utils.sh
+
+          EXPECTED="DEFAULT:PQ"
+
+          # Normalise to registry/repository@digest, reusing the same helper the
+          # Konflux fips check uses (skopeo/oc reject a tag+digest reference).
+          IMAGE="$(get_image_registry_repository_digest "${IMAGE_URL}@${IMAGE_DIGEST}")"
+          echo "Inspecting ${IMAGE}"
+
+          # Extract /etc/crypto-policies/state/current from the built image. oc
+          # image extract authenticates with the credentials Tekton mounts at
+          # ~/.docker/config.json, so no separate pull secret is needed.
+          dest="$(mktemp -d)"
+          oc image extract "${IMAGE}" --filter-by-os=linux/amd64 \
+            --path="/etc/crypto-policies/state/current:${dest}" --confirm
+
+          policy="$(cat "${dest}/current")"
+          echo "Crypto policy state in image: '${policy}'"
+          printf '%s' "${policy}" > "${RESULT_PATH}"
+          if [ "${policy}" != "${EXPECTED}" ]; then
+            echo "ERROR: expected crypto policy '${EXPECTED}' but found '${policy}'"
+            exit 1
+          fi
+          echo "Crypto policy correctly set to ${EXPECTED}"
   params:
   - description: Source Repository URL
     name: git-url
