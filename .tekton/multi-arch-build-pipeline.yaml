@@ -415,6 +415,11 @@ spec:
       values:
       - "false"
   - name: validate-crypto-policy
+    matrix:
+      params:
+      - name: PLATFORM
+        value:
+        - $(params.build-platforms)
     params:
     - name: IMAGE_URL
       value: $(tasks.build-image-index.results.IMAGE_URL)
@@ -433,6 +438,8 @@ spec:
         type: string
       - name: IMAGE_DIGEST
         type: string
+      - name: PLATFORM
+        type: string
       results:
       - name: CRYPTO_POLICY
         description: The crypto policy found in the built image.
@@ -444,6 +451,8 @@ spec:
           value: $(params.IMAGE_URL)
         - name: IMAGE_DIGEST
           value: $(params.IMAGE_DIGEST)
+        - name: PLATFORM
+          value: $(params.PLATFORM)
         - name: RESULT_PATH
           value: $(results.CRYPTO_POLICY.path)
         script: |
@@ -453,17 +462,22 @@ spec:
           . /utils.sh
 
           EXPECTED="DEFAULT:PQ"
+          # The build controller uses x86_64; OCI manifests use amd64.
+          platform="${PLATFORM}"
+          if [[ "${platform}" == "linux/x86_64" ]]; then
+            platform="linux/amd64"
+          fi
 
           # Normalise to registry/repository@digest, reusing the same helper the
           # Konflux fips check uses (skopeo/oc reject a tag+digest reference).
           IMAGE="$(get_image_registry_repository_digest "${IMAGE_URL}@${IMAGE_DIGEST}")"
-          echo "Inspecting ${IMAGE}"
+          echo "Inspecting ${IMAGE} (${platform})"
 
           # Extract /etc/crypto-policies/state/current from the built image. oc
           # image extract authenticates with the credentials Tekton mounts at
           # ~/.docker/config.json, so no separate pull secret is needed.
           dest="$(mktemp -d)"
-          oc image extract "${IMAGE}" --filter-by-os=linux/amd64 \
+          oc image extract "${IMAGE}" --filter-by-os="^${platform}$" \
             --path="/etc/crypto-policies/state/current:${dest}" --confirm
 
           policy="$(cat "${dest}/current")"
