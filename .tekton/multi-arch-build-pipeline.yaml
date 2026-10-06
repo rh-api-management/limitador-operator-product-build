@@ -477,7 +477,8 @@ spec:
           # image extract authenticates with the credentials Tekton mounts at
           # ~/.docker/config.json, so no separate pull secret is needed.
           dest="$(mktemp -d)"
-          oc image extract "${IMAGE}" --filter-by-os="^${platform}$" \
+          # OCI platforms can include a variant, such as linux/arm64/v8.
+          oc image extract "${IMAGE}" --filter-by-os="^${platform}(/[^/]+)?$" \
             --path="/etc/crypto-policies/state/current:${dest}" --confirm
 
           policy="$(cat "${dest}/current")"
