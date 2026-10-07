@@ -29,7 +29,9 @@ COPY limitador-operator/LICENSE /licenses/LICENSE
 RUN CGO_ENABLED=1 GOEXPERIMENT=strictfipsruntime GOOS=linux GOARCH=$(go env GOARCH) go build -a -tags strictfipsruntime -ldflags "${LDFLAGS}$(date -u +'%Y-%m-%dT%H:%M:%SZ')" -o ${BINARY_NAME} main.go
 
 
-FROM registry.redhat.io/ubi9/ubi-minimal:latest
+# Use the RHEL9 PQC variant of ubi-minimal, which ships with the system-wide
+# crypto policy set to DEFAULT:PQ (CONNLINK-1566).
+FROM registry.redhat.io/ubi9/ubi-minimal-pqc:latest
 
 LABEL version="0.19.0" \
       summary="Enables rate limiting for Gateways and applications in a Gateway API network" \
