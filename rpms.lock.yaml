@@ -165,13 +165,13 @@ arches:
     name: shadow-utils-subid
     evr: 2:4.9-17.el9
     sourcerpm: shadow-utils-4.9-17.el9.src.rpm
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/appstream/os/Packages/s/skopeo-1.22.2-5.el9_9.x86_64.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/appstream/os/Packages/s/skopeo-1.22.2-6.el9_9.x86_64.rpm
     repoid: rhel-9-for-x86_64-appstream-rpms
-    size: 8617036
-    checksum: sha256:8212f831a4ccb4eb1dac11bf449f8bf1b5fbb4898e4f03beda39a144283220cd
+    size: 8721545
+    checksum: sha256:04ae5391aedfb20efd865f1dbf99c4747e1313ea9584d1033c073eb946379dcc
     name: skopeo
-    evr: 3:1.22.2-5.el9_9
-    sourcerpm: skopeo-1.22.2-5.el9_9.src.rpm
+    evr: 3:1.22.2-6.el9_9
+    sourcerpm: skopeo-1.22.2-6.el9_9.src.rpm
   - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/os/Packages/o/oniguruma-6.9.6-1.el9.6.x86_64.rpm
     repoid: rhel-9-for-x86_64-baseos-rpms
     size: 226451
