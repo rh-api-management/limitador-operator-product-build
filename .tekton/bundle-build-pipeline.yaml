@@ -189,7 +189,7 @@ spec:
       - name: name
         value: fips-operator-bundle-check-oci-ta
       - name: bundle
-        value: quay.io/konflux-ci/tekton-catalog/task-fips-operator-bundle-check-oci-ta:0.1@sha256:c8bc0e248df358b313ee6de261fb9e8e99eefa52039d85b352a4b94fae0d3177
+        value: quay.io/konflux-ci/tekton-catalog/task-fips-operator-bundle-check-oci-ta:0.1@sha256:f2b0a6eac01beb85c8cf255c32cae8dad5b42cc1c975ccf9076fd6c9c6bc704a
       - name: kind
         value: task
       resolver: bundles
