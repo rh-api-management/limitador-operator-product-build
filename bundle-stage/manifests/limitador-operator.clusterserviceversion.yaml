@@ -178,7 +178,7 @@ spec:
                       - /manager
                     env:
                       - name: RELATED_IMAGE_LIMITADOR
-                        value: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:df19a6b234fa03a5f4f4a1c4bb7b2ee5661c82c9b0e1c29bbfa73c2a0b87dac8
+                        value: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:4f499803ccc1dea8df288e83ecebde4995e517ba1fefd1e967145801d76dfcbe
                     image: registry.stage.redhat.io/rhcl-1/limitador-rhel9-operator@sha256:9c3f210f4bb951315ee18ff21c8c28e1e9149b266d52bd2e4c412f74321b5133
                     livenessProbe:
                       httpGet:
@@ -265,6 +265,6 @@ spec:
     name: Red Hat
     url: https://github.com/Kuadrant/limitador-operator
   relatedImages:
-    - image: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:df19a6b234fa03a5f4f4a1c4bb7b2ee5661c82c9b0e1c29bbfa73c2a0b87dac8
+    - image: registry.stage.redhat.io/rhcl-1/limitador-rhel9@sha256:4f499803ccc1dea8df288e83ecebde4995e517ba1fefd1e967145801d76dfcbe
       name: limitador
   version: 1.4.4
